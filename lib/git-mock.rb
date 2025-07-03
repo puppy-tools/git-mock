@@ -1,4 +1,4 @@
-module GM
+module GitMock
   module Git
     class Mock
       def initialize(initial_branch=nil, branches=[])
