@@ -1,6 +1,6 @@
 require "minitest/autorun"
 require "minitest/pride"
 
-class GitMockTest < Minitest::Test
-  
+class GitToolsTest < Minitest::Test
+
 end
