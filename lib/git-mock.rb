@@ -1,3 +1,5 @@
+require "tmpdir"
+
 module GitMock
   module Git
     DEFAULT_INITIAL_BRANCH = 'master'
