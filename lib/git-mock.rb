@@ -2,23 +2,22 @@ module GitMock
   module Git
     class Mock
       def initialize(initial_branch=nil, branches=[])
-          Dir.mktmpdir do |dir|
-            Dir.chdir(dir) do 
-              branches.delete(initial_branch)
-              branches.uniq!
-              repo_initialized = Git.initialize(initial_branch)
-              `git commit --allow-empty --allow-empty-message -m ""`
-              commit_successful = $?.success?
-              MockRepo.make_branches(branches)
-      
-              meta = { 
-                initial_branch: initial_branch,
-                branches: [initial_branch] + branches,
-                initialized: repo_initialized && commit_successful
-              }
-      
-              yield meta
-            end
+        Dir.mktmpdir do |dir|
+          Dir.chdir(dir) do 
+            branches.delete(initial_branch)
+            branches.uniq!
+            repo_initialized = Git.initialize(initial_branch)
+            `git commit --allow-empty --allow-empty-message -m ""`
+            commit_successful = $?.success?
+            MockRepo.make_branches(branches)
+    
+            meta = { 
+              initial_branch: initial_branch,
+              branches: [initial_branch] + branches,
+              initialized: repo_initialized && commit_successful
+            }
+    
+            yield meta
           end
         end
       end
