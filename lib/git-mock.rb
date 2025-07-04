@@ -11,7 +11,7 @@ module GitMock
             repo_initialized = Git.initialize(initial_branch)
             `git commit --allow-empty --allow-empty-message -m ""`
             commit_successful = $?.success?
-            MockRepo.make_branches(branches)
+            Git.make_branches(branches)
     
             meta = { 
               initial_branch: initial_branch,
@@ -36,7 +36,7 @@ module GitMock
 
     def self.make_branches(branches)
       for branch in branches
-        MockRepo.make_branch(branch)
+        Git.make_branch(branch)
       end
     end
 
