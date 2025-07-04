@@ -1,5 +1,7 @@
 module GitMock
   module Git
+    DEFAULT_INITIAL_BRANCH = 'master'
+
     class Mock
       def initialize(initial_branch=nil, branches=[])
         Dir.mktmpdir do |dir|
