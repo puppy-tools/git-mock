@@ -8,6 +8,9 @@ module GitMock
       def initialize(initial_branch=nil, branches=[])
         Dir.mktmpdir do |dir|
           Dir.chdir(dir) do 
+
+            initial_branch = initial_branch || DEFAULT_INITIAL_BRANCH
+
             branches.delete(initial_branch)
             branches.uniq!
             repo_initialized = Git.initialize(initial_branch)
