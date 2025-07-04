@@ -1,6 +1,21 @@
 require "tmpdir"
 
 module GitMock
+
+  module Utils 
+    def self.system_silent(*args)
+      system(*args, [:out, :err] => File::NULL)
+    end
+
+    def self.system_no_stderr(*args)
+      system(*args, [:err] => File::NULL)
+    end
+
+    def self.system_no_stdout(*args)
+      system(*args, [:out] => File::NULL)
+    end
+  end
+
   module Git
     DEFAULT_INITIAL_BRANCH = 'master'
 
@@ -30,13 +45,23 @@ module GitMock
       end
     end
 
-    def self.initialize(initial_branch=nil)
-      system('git', 'init', '-b', initial_branch || DEFAULT_INITIAL_BRANCH)
+    def self.initialize_repo(initial_branch)
+      GitMock::Utils.system_silent('git', 'init', '-b', initial_branch)
+      return $?.success?
+    end
+    
+    def self.initialize_repo_default()
+      GitMock::Utils.system_silent('git', 'init', '-b', DEFAULT_INITIAL_BRANCH)
       return $?.success?
     end
 
+    def self.default_initial_branch()
+      return DEFAULT_INITIAL_BRANCH
+    end
+
+
     def self.make_branch(branch)
-      system('git', 'branch', branch)
+      GitMock::Utils.system_silent('git', 'branch', branch)
     end
 
     def self.make_branches(branches)
